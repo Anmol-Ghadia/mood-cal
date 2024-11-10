@@ -1,0 +1,30 @@
+#dropContainer[data-has-data="1"] #submit-button,
+#dropContainer[data-has-data="1"] #delete-data-button {
+    display: block;
+}
+
+#dropContainer[data-has-data="0"] #submit-button,
+#dropContainer[data-has-data="0"] #delete-data-button {
+    display: none;
+}
+
+#dropContainer[data-has-data="1"] {
+    scale: 105%;
+}
+
+#dropContainer[data-hidden="0"] {
+    display: block;
+}
+
+#dropContainer[data-hidden="1"] {
+    display: none;
+}
+
+#dropContainer {
+    width: 40vw;
+    height: 20vh;
+    border: 2px dashed #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

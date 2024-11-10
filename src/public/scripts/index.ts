@@ -1,4 +1,7 @@
 const dropContainer = document.getElementById('dropContainer') as HTMLElement;
+const summaryContainer = document.getElementById("summary") as HTMLElement;
+
+let DATA: string | null = null;
 
 dropContainer.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -13,13 +16,28 @@ dropContainer.addEventListener('drop', async (event: DragEvent) =>  {
         console.log(file)
         if (file && (file.name.endsWith('.ical') || file.name.endsWith('.ics'))) {
             const data_base64 = await convertToBase64(file); // recevie base 64 converted data
-            // console.log('converted data to base 64', data_base64);
-            sendData(data_base64); // send converted data to backend
+            DATA = data_base64
+            dropContainer.dataset.hasData = "1"
         } else {
             alert('Please drop a .ical or .ics file');
         }
     }
 });
+
+function submitData() {
+    if (DATA != null) {
+        summaryContainer.innerText = "...loading";
+        fetchData(DATA)
+
+    }
+}
+
+function deleteData() {
+    if (DATA != null) {
+        DATA = null
+        dropContainer.dataset.hasData = "0"
+    }
+} 
 
 async function convertToBase64(file: File): Promise<string> {
     const arrayBuffer = await file.arrayBuffer();
@@ -36,7 +54,7 @@ async function convertToBase64(file: File): Promise<string> {
     return btoa(binaryString);
 }
 
-async function sendData(converted_data: string) {
+async function fetchData(converted_data: string) {
     fetch('api/data', {
         method: 'POST',
         headers: {'Content-Type': 'application/json',
@@ -50,6 +68,8 @@ async function sendData(converted_data: string) {
         return response.json();
     })
     .then(result => {
+        summaryContainer.innerText = result.message;
+        dropContainer.dataset.hidden = '1';
         console.log('Response from backend:', result);
       })
     .catch(error => {
