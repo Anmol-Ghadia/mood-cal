@@ -30,8 +30,26 @@ export async function processString(inputText: string): Promise<string | null> {
     }
 }
 
+// Requires the data to be of array type by the response
+export async function processArrayOfData(inputText: string): Promise<string[]> {
+    let data = await processString(inputText);
+    if (data === null) {
+        throw new Error("No data provided");
+    }
+    const out : string[] = [];
+    for (let i = 0; i < 5; i++) {
+        if (data?.charAt(0) === '[' || data?.charAt(data.length - 1) === ']') {
+           break;
+        }
+        data = await processString(inputText);
+    }
+    if (data?.charAt(0) === '[' || data?.charAt(data.length - 1) === ']') {
+        data.split(',').forEach((element) => {
+            out.push(element);
+        });
+        return out;
+    } else {
+        throw new Error("Error in parsing data");
+    }
+}
 
-
-// Example usage of the function with shorter output
-// const inputText = "Explain how photosynthesis works in simple terms.";
-// processString(inputText).then(output => console.log(output));
