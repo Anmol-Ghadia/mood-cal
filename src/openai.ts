@@ -30,22 +30,26 @@ export async function processString(inputText: string): Promise<string | null> {
     }
 }
 
-// Requires the data to be of array type by the response
+
 export async function processArrayOfData(inputText: string): Promise<string[]> {
     let data = await processString(inputText);
     if (data === null) {
         throw new Error("No data provided");
     }
-    const out : string[] = [];
+    const out: string[] = [];
+    
     for (let i = 0; i < 5; i++) {
-        if (data?.charAt(0) === '[' || data?.charAt(data.length - 1) === ']') {
-           break;
+        if (data?.charAt(0) === '[' && data.charAt(data.length - 1) === ']') {
+            break;
         }
         data = await processString(inputText);
     }
-    if (data?.charAt(0) === '[' || data?.charAt(data.length - 1) === ']') {
+
+    if (data?.charAt(0) === '[' && data.charAt(data.length - 1) === ']') {
+        data = data.slice(1, -1); // Remove the surrounding brackets
         data.split(',').forEach((element) => {
-            out.push(element);
+            const cleanedElement = element.trim().replace(/['"`]/g, ''); // Remove " or ' or ` symbols
+            out.push(cleanedElement);
         });
         return out;
     } else {
