@@ -31,5 +31,5 @@ export async function processString(inputText: string): Promise<string | null> {
 }
 
 // Example usage of the function with shorter output
-const inputText = "Explain how photosynthesis works in simple terms.";
-processString(inputText).then(output => console.log(output));
+// const inputText = "Explain how photosynthesis works in simple terms.";
+// processString(inputText).then(output => console.log(output));
