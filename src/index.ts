@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import {generateSummaryPrompt, generateArrayOfData} from './prompt';
-import {processString} from './openai';
+import {processArrayOfData, processString} from './openai';
 import path from 'path';
 import { get } from 'http';
 const app = express();
@@ -37,11 +37,11 @@ app.post('/api/data', async (req: Request, res: Response) => {
 
     console.log(`Received base64 data`);
     const prompt = generateSummaryPrompt(data);
-    const arrayData = generateArrayOfData(data);
+    const arrayPrompt = generateArrayOfData(data);
     const gptResult =  processString(`${prompt}`);
-    const gptResultArray =  processString(`${arrayData}`);
+    const gptResultArray =  processArrayOfData(`${arrayPrompt}`);
     Promise.all([gptResult, gptResultArray]).then((values) => {
-        res.json({ message: values[0] });
+        res.json({ message: values[0], moodsArray: values[1] });
     });
     return;
 });

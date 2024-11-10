@@ -6,11 +6,11 @@ export function generateArrayOfData(base64String: string): string {
     if (!icalJsonObject) {
         return "";
     }
-    // console.log("Generated iCal JSON Object:", icalJsonObject);
+   
     const parsedIcalJsonObject = JSON.parse(icalJsonObject);
-    // console.log("Parsed iCal JSON Object:", parsedIcalJsonObject);
+   
     const filteredEvents = filterEventsForOneWeek(parsedIcalJsonObject);
-    // console.log("Filtered iCal JSON Object:", filteredEvents);
+
 
     const cleanedEvents = removeUnwantedFields(filteredEvents);
 
@@ -20,7 +20,6 @@ export function generateArrayOfData(base64String: string): string {
      ["classification: reason", "classification: reason", "classification: reason", "classification: reason",
       "classification: reason", "classification: reason", "classification: reason"].`;
 }
-
 
 export function generateSummaryPrompt(base64String: string): string {
     const icalJsonObject = makeFirstJsonObject(base64String);
@@ -53,7 +52,6 @@ function summaryPrompt(data: string): string {
         Suggest finding happiness-boosting activities if varied.
         Suggest some activities to reduce stress if negative (give examples if neccessary).
         Make sure that you cover each day and every fluctuation you see. 
-        Add '#help' if signs of depression appear consistently.
         Make sure all are included in the response.`;
     console.log("Prompt:", prompt);
      return prompt;
@@ -96,20 +94,12 @@ function filterEventsForOneWeek(events: { [key: string]: any }): { [key: string]
 
     const filteredEvents: { [key: string]: any } = {};
     for (const [key, event] of Object.entries(events)) {
-        // console.log(`Processing event: ${key}: ${event.start}` );
         if (event.start) {
             const eventDate = new Date(event.start);
             console.log("Event date:", eventDate);
-            // eventDate.setHours(0, 0, 0, 0); // Set to start of the day
-
             if (eventDate >= oneWeekAgo && eventDate <= today) {
-                // console.log("Event is within the range:", key);
                 filteredEvents[key] = event;
-            } else {
-                // console.log("Event is outside the range:", key);
             }
-        } else {
-            // console.log("Event does not have a start date:", key);
         }
     }
 
