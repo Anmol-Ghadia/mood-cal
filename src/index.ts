@@ -19,10 +19,22 @@ app.get('/back', (req: Request, res: Response) => {
   res.send('Hello, TypeScript Backend!');
 });
 
-// Example of a POST route
+// Assumes: valid base64 string is provided
 app.post('/api/data', (req: Request, res: Response) => {
-  const { name, age } = req.body;
-  res.json({ message: `Received data for ${name}, age ${age}` });
+    // Ensure 'data' is coming from req.body
+    const { data } = req.body;
+
+    // Check if 'data' is present and is a valid string
+    if (typeof data !== 'string' || !data) {
+        console.log(`Received invalid data`);
+        res.status(400);
+        res.json({ error: 'Invalid or missing "data" field' });
+        return;
+    }
+
+    console.log(`Received: ${data}`);
+    res.json({ message: 'Received data' });
+    return;
 });
 
 // Start the server
