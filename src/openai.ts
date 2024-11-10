@@ -17,7 +17,7 @@ export async function processString(inputText: string): Promise<string | null> {
         const chatCompletion = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
             messages: [{ role: 'user', content: inputText }],
-            max_tokens: 100,
+            max_tokens: 200,
             top_p: 0.8 
         });
         
@@ -29,6 +29,8 @@ export async function processString(inputText: string): Promise<string | null> {
         return "An error occurred.";
     }
 }
+
+
 
 // Example usage of the function with shorter output
 // const inputText = "Explain how photosynthesis works in simple terms.";

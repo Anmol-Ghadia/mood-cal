@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
-import {generateFinalObject} from './prompt';
+import {generateSummaryPrompt, generateArrayOfData} from './prompt';
 import {processString} from './openai';
 import path from 'path';
+import { get } from 'http';
 const app = express();
 const port = 3000;
 
@@ -35,9 +36,13 @@ app.post('/api/data', async (req: Request, res: Response) => {
     }
 
     console.log(`Received base64 data`);
-    const prompt = generateFinalObject(data);
-    const gptResult = await processString(`${prompt}\n----\n given the above calendar data, give me a summary of my mood and also suggest how I can improve my mood in one 2 sentences.`)
-    res.json({ message: gptResult });
+    const prompt = generateSummaryPrompt(data);
+    const arrayData = generateArrayOfData(data);
+    const gptResult =  processString(`${prompt}`);
+    const gptResultArray =  processString(`${arrayData}`);
+    Promise.all([gptResult, gptResultArray]).then((values) => {
+        res.json({ message: values[0] });
+    });
     return;
 });
 
