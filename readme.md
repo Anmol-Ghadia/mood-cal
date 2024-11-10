@@ -5,7 +5,7 @@ npm install
 ```
 
 ```sh
-npm run dev
+npm run start
 ```
 
 ### project structure

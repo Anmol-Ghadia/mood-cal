@@ -7,7 +7,7 @@ const port = 3000;
 app.use(express.json());
 
 
-app.use(express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve front end file
 app.get('/', (req: Request, res: Response) => {
@@ -32,7 +32,7 @@ app.post('/api/data', (req: Request, res: Response) => {
         return;
     }
 
-    console.log(`Received: ${data}`);
+    console.log(`Received base64 data`);
     res.json({ message: 'Received data' });
     return;
 });
