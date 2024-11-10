@@ -1,12 +1,11 @@
-import { response } from "express";
-
 const dropContainer = document.getElementById('dropContainer') as HTMLElement;
 const summaryContainer = document.getElementById("summary") as HTMLElement;
 
 
 let DATA: string | null = null;
-let MOODS_ARRAY: string[] | null= null;
-let MOODS_NUM_ARRAY: number[] | null = null;
+let MOODS_ARRAY: string[]= [];
+let MOODS_DESC: string[]= [];
+let MOODS_NUM_ARRAY: number[]= [];
 
 dropContainer.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -74,8 +73,9 @@ async function fetchData(converted_data: string) {
     })
     .then(result => {
         summaryContainer.innerText = result.message;
-        MOODS_ARRAY = filterArray(result.moodsArray);
-        MOODS_NUM_ARRAY = convertWordsToPoint(MOODS_ARRAY);
+        setGlobalArrs(result.moodsArray);
+        
+        makeGraph(MOODS_ARRAY,MOODS_NUM_ARRAY);
 
         dropContainer.dataset.hidden = '1';
         console.log('Response from backend:', result);
@@ -85,52 +85,93 @@ async function fetchData(converted_data: string) {
     });
 }
 
-function filterArray(response_array: string[]): string[] {
+function setGlobalArrs(response_array: string[]): string[] {
     const filtered_array: string[] = [];
     response_array.forEach((element) => {
-      const [word] = element.split(","); // spliting the element at ","
-      filtered_array.push(word.trim()); // trim to remove extra spaces
-        
+        const word = element.split(":")[0]
+      MOODS_ARRAY.push(word); // trim to remove extra spaces
+      MOODS_DESC.push(element.split(":")[1]); // trim to remove extra spaces
+      MOODS_NUM_ARRAY.push(convetWordToPoint(word));
+      
     });
     return filtered_array;
 }
 
-function convertWordsToPoint(filtered_array: string[]): number[] {
-    const pointsArray: number[] = [];
-    for (let i = 0; i < filtered_array.length; i++) {
-        const element = filtered_array[i];
-        let point = 0;
-        switch (element) {
-            case "Happy": 
-            point = 5;
-            break;
-            case "Calm": 
-            point = 3;
-            break;
-            case "Focused": 
-            point = 2;
-            break;
-            case "Neutral": 
+function convetWordToPoint(word: string): number {
+    let point = 0;
+    switch (word) {
+        case "Happy": 
+        point = 5;
+        break;
+        case "Calm": 
+        point = 3;
+        break;
+        case "Focused": 
+        point = 2;
+        break;
+        case "Neutral": 
+        point = 0;
+        break;
+        case "Sad": 
+        point = -2;
+        break;
+        case "Anxious": 
+        point = -3;
+        break;
+        case "Angry": 
+        point = -4;
+        break;
+        case "Stressed": 
+        point = -5;
+        break;
+        default:
             point = 0;
             break;
-            case "Sad": 
-            point = -2;
-            break;
-            case "Anxious": 
-            point = -3;
-            break;
-            case "Angry": 
-            point = -4;
-            break;
-            case "Stressed": 
-            point = -5;
-            break;
-            default:
-                point = 0;
-                break;
-        }
-        pointsArray.push(point);
-        
     }
-    return pointsArray;
+    console.log(`word: ${word}, points: ${point}`)
+    return point;
   }
+
+
+// Get the context of the canvas element
+const mychart: HTMLCanvasElement = document.getElementById('myChart') as HTMLCanvasElement;
+const ctx = mychart.getContext('2d') as CanvasRenderingContext2D;
+let myLineChart;
+
+// Create the line chart
+function makeGraph(labels: string[], data:number[]) {
+    console.log(labels)
+    console.log(data)
+
+    const config: any = {
+        type: 'line', // Line chart type
+        data: {
+            labels: labels, // X-axis labels
+            datasets: [{
+            label: 'Mood', // Label for the line
+            data: data, // Y-axis data
+            fill: false, // Do not fill the area under the line
+            borderColor: 'rgba(75, 192, 192, 1)', // Line color
+            tension: 0.3 // Line tension (curvature)
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+            x: {
+                title: {
+                display: false,
+                text: 'Last week'
+                }
+            },
+            y: {
+                title: {
+                display: true,
+                text: 'Mood'
+                }
+            }
+            }
+        }
+        };
+    myLineChart = new Chart(ctx, config);
+}

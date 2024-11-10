@@ -26,44 +26,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="scripts/index.js"></script>
-<script>
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-    const data = [65, 59, 80, 81, 56, 55]; // Example dataset
-
-    // Get the context of the canvas element
-    const ctx = document.getElementById('myChart').getContext('2d');
-
-    // Create the line chart
-    const myLineChart = new Chart(ctx, {
-      type: 'line', // Line chart type
-      data: {
-        labels: labels, // X-axis labels
-        datasets: [{
-          label: 'My First Dataset', // Label for the line
-          data: data, // Y-axis data
-          fill: false, // Do not fill the area under the line
-          borderColor: 'rgba(75, 192, 192, 1)', // Line color
-          tension: 0.1 // Line tension (curvature)
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Months'
-            }
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Value'
-            }
-          }
-        }
-      }
-    });
-</script>
-<!-- <script src="scripts/graph.js"></script> -->
+<script src="scripts/graph.js"></script>
 </html>

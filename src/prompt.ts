@@ -85,7 +85,7 @@ function decodeAndParseICS(base64String: string): ical.FullCalendar {
 function filterEventsForOneWeek(events: { [key: string]: any }): { [key: string]: any } {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to start of today for accurate range checking
-    today.setDate(today.getDate() + 7); // !!! Added, remove please
+    today.setDate(today.getDate()); // !!! Added, remove please
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(today.getDate() - 7);
     oneWeekAgo.setHours(0, 0, 0, 0); // Set to start of the day

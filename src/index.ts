@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import {generateSummaryPrompt, generateArrayOfData} from './prompt';
 import {processArrayOfData, processString} from './openai';
 import path from 'path';
-import { get } from 'http';
 const app = express();
 const port = 3000;
 
