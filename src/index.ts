@@ -28,7 +28,7 @@ app.post('/api/data', (req: Request, res: Response) => {
     if (typeof data !== 'string' || !data) {
         console.log(`Received invalid data`);
         res.status(400);
-        res.json({ error: 'Invalid or missing "data" field' });
+        res.json({ error: 'Invalid or missing data field' });
         return;
     }
 
