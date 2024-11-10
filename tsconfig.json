@@ -11,7 +11,7 @@
     // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
     /* Language and Environment */
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
@@ -108,3 +108,19 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   }
 }
+
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",                    // Set target to ESNext for latest language features
+//     "module": "ESNext",                    // Use ESNext for module resolution
+//     "rootDir": "./src",                    // Set root directory
+//     "outDir": "./dist",                    // Specify output directory
+//     "esModuleInterop": true,               // Enable ES module interoperability
+//     "skipLibCheck": true,                  // Skip type checking of .d.ts files
+//     "resolveJsonModule": true,             // Allow JSON imports
+//     "allowSyntheticDefaultImports": true,  // Allow default imports from modules with no default export
+//     "strict": true,                        // Enable all strict type-checking options
+//     "forceConsistentCasingInFileNames": true // Ensure consistent casing in file names
+//   },
+//   "include": ["src/**/*"]                 // Include all files in the src directory
+// }
