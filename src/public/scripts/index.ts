@@ -134,3 +134,21 @@ function convertWordsToPoint(filtered_array: string[]): number[] {
     }
     return pointsArray;
   }
+
+  function giveInformationForHelp(pointsArray: number[]) {
+    if (helpNeeded(pointsArray)) {
+        const showHelpDiv = document.getElementById('showHelp') as HTMLElement;
+        if (showHelpDiv) {
+            showHelpDiv.style.display = 'block';
+        }
+    }
+  }
+  
+
+  function helpNeeded(pointsArray: number[]): boolean {
+    let sum = 0;
+    for (let i = 0; i < pointsArray.length; i++) {
+      sum += pointsArray[i];
+    }
+    return (sum/pointsArray.length) < -2;
+  }
