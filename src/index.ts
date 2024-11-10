@@ -1,13 +1,21 @@
 import express, { Request, Response } from 'express';
-
+import path from 'path';
 const app = express();
 const port = 3000;
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Simple route
+
+app.use(express.static(path.join(__dirname, 'images')));
+
+// Serve front end file
 app.get('/', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// backend route, probably will be removed later 
+app.get('/back', (req: Request, res: Response) => {
   res.send('Hello, TypeScript Backend!');
 });
 
