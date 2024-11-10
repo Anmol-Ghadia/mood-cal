@@ -1,9 +1,20 @@
+# mood-cal
+
 ```sh
 npm install
 ```
 
 ```sh
 npm run dev
+```
+
+### project structure
+1) frontend: everything in `src/public`
+1) backend: everything in `src` that is not frontend
+
+### api key format in .env
+```
+OPENAI_API_KEY="your key here"
 ```
 
 
