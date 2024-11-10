@@ -1,7 +1,12 @@
+import { response } from "express";
+
 const dropContainer = document.getElementById('dropContainer') as HTMLElement;
 const summaryContainer = document.getElementById("summary") as HTMLElement;
 
+
 let DATA: string | null = null;
+let MOODS_ARRAY: string[] | null= null;
+let MOODS_NUM_ARRAY: number[] | null = null;
 
 dropContainer.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -69,11 +74,63 @@ async function fetchData(converted_data: string) {
     })
     .then(result => {
         summaryContainer.innerText = result.message;
+        MOODS_ARRAY = filterArray(result.moodsArray);
+        MOODS_NUM_ARRAY = convertWordsToPoint(MOODS_ARRAY);
+
         dropContainer.dataset.hidden = '1';
         console.log('Response from backend:', result);
       })
     .catch(error => {
         console.error('Error:', error);
     });
-
 }
+
+function filterArray(response_array: string[]): string[] {
+    const filtered_array: string[] = [];
+    response_array.forEach((element) => {
+      const [word] = element.split(","); // spliting the element at ","
+      filtered_array.push(word.trim()); // trim to remove extra spaces
+        
+    });
+    return filtered_array;
+}
+
+function convertWordsToPoint(filtered_array: string[]): number[] {
+    const pointsArray: number[] = [];
+    for (let i = 0; i < filtered_array.length; i++) {
+        const element = filtered_array[i];
+        let point = 0;
+        switch (element) {
+            case "Happy": 
+            point = 5;
+            break;
+            case "Calm": 
+            point = 3;
+            break;
+            case "Focused": 
+            point = 2;
+            break;
+            case "Neutral": 
+            point = 0;
+            break;
+            case "Sad": 
+            point = -2;
+            break;
+            case "Anxious": 
+            point = -3;
+            break;
+            case "Angry": 
+            point = -4;
+            break;
+            case "Stressed": 
+            point = -5;
+            break;
+            default:
+                point = 0;
+                break;
+        }
+        pointsArray.push(point);
+        
+    }
+    return pointsArray;
+  }
