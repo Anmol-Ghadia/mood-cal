@@ -128,10 +128,9 @@ function convetWordToPoint(word: string): number {
             point = 0;
             break;
     }
-    console.log(`word: ${word}, points: ${point}`)
+  console.log(`word: ${word}, points: ${point}`)
     return point;
   }
-
 
 // Get the context of the canvas element
 const mychart: HTMLCanvasElement = document.getElementById('myChart') as HTMLCanvasElement;
@@ -175,3 +174,21 @@ function makeGraph(labels: string[], data:number[]) {
         };
     myLineChart = new Chart(ctx, config);
 }
+
+  function giveInformationForHelp(pointsArray: number[]) {
+    if (helpNeeded(pointsArray)) {
+        const showHelpDiv = document.getElementById('showHelp') as HTMLElement;
+        if (showHelpDiv) {
+            showHelpDiv.style.display = 'block';
+        }
+    }
+  }
+  
+
+  function helpNeeded(pointsArray: number[]): boolean {
+    let sum = 0;
+    for (let i = 0; i < pointsArray.length; i++) {
+      sum += pointsArray[i];
+    }
+    return (sum/pointsArray.length) < -2;
+  }
