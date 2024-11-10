@@ -1,10 +1,3 @@
-// import { rejects } from "assert";
-// import { error } from "console";
-// import { resolve } from "path";
-// import { Buffer } from "buffer";
-// import { response } from "express";
-// import { resourceUsage } from "process";
-
 const dropContainer = document.getElementById('dropContainer') as HTMLElement;
 
 dropContainer.addEventListener('dragover', (event) => {

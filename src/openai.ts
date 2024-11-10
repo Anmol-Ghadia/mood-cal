@@ -17,7 +17,7 @@ export async function processString(inputText: string): Promise<string | null> {
         const chatCompletion = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
             messages: [{ role: 'user', content: inputText }],
-            max_tokens: 50,
+            max_tokens: 100,
             top_p: 0.8 
         });
         
