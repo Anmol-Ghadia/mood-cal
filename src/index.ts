@@ -1,4 +1,6 @@
 import express, { Request, Response } from 'express';
+import {generateFinalObject} from './prompt';
+import {processString} from './openai';
 import path from 'path';
 const app = express();
 const port = 3000;
@@ -20,7 +22,7 @@ app.get('/back', (req: Request, res: Response) => {
 });
 
 // Assumes: valid base64 string is provided
-app.post('/api/data', (req: Request, res: Response) => {
+app.post('/api/data', async (req: Request, res: Response) => {
     // Ensure 'data' is coming from req.body
     const { data } = req.body;
 
@@ -33,7 +35,9 @@ app.post('/api/data', (req: Request, res: Response) => {
     }
 
     console.log(`Received base64 data`);
-    res.json({ message: 'Received data' });
+    const prompt = generateFinalObject(data);
+    const gptResult = await processString(`${prompt}\n----\n given the above calendar data, give me a summary of my mood and also suggest how I can improve my mood in one 2 sentences.`)
+    res.json({ message: gptResult });
     return;
 });
 

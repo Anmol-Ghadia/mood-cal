@@ -1,15 +1,17 @@
 import * as ical from 'ical';
 
 // Decode the Base64 encoded string and generate an iCal JSON object
-export function generateFinalObject(base64String: string) {
+export function generateFinalObject(base64String: string): string {
     const icalJsonObject = makeFirstJsonObject(base64String);
     if (!icalJsonObject) {
-        return null;
+        return "";
     }
-    console.log("Generated iCal JSON Object:", icalJsonObject);
+    // console.log("Generated iCal JSON Object:", icalJsonObject);
     const parsedIcalJsonObject = JSON.parse(icalJsonObject);
-    console.log("Parsed iCal JSON Object:", parsedIcalJsonObject);
+    // console.log("Parsed iCal JSON Object:", parsedIcalJsonObject);
     const filteredEvents = filterEventsForOneWeek(parsedIcalJsonObject);
+    // console.log("Filtered iCal JSON Object:", filteredEvents);
+
     const cleanedEvents = removeUnwantedFields(filteredEvents);
 
     return cleanedEvents;
@@ -19,7 +21,7 @@ export function generateFinalObject(base64String: string) {
 export function generatePrompt(base64String: string) {
     try {
         const icalJsonObject = makeFirstJsonObject(base64String);
-        console.log("Generated iCal JSON Object:", icalJsonObject);
+        // console.log("Generated iCal JSON Object:", icalJsonObject);
         return icalJsonObject;
     } catch (error) {
         console.error("Error generating iCal JSON object:", error);
@@ -31,7 +33,7 @@ export function generatePrompt(base64String: string) {
 function makeFirstJsonObject(base64String: string): string | null {
     try {
         const icalData = decodeAndParseICS(base64String);
-        console.log("Parsed iCal data:", icalData);
+        // console.log("Parsed iCal data:", icalData);
         return JSON.stringify(icalData, null, 2);
     } catch (error) {
         console.error("Error converting iCal data to JSON:", error);
@@ -54,45 +56,60 @@ function decodeAndParseICS(base64String: string): ical.FullCalendar {
 function filterEventsForOneWeek(events: { [key: string]: any }): { [key: string]: any } {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to start of today for accurate range checking
+    today.setDate(today.getDate() + 7); // !!! Added, remove please
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(today.getDate() - 7);
     oneWeekAgo.setHours(0, 0, 0, 0); // Set to start of the day
 
-    console.log("Filtering events from:", oneWeekAgo, "to:", today);
+    // console.log("Filtering events from:", oneWeekAgo, "to:", today);
 
     const filteredEvents: { [key: string]: any } = {};
     for (const [key, event] of Object.entries(events)) {
-        console.log("Processing event:", key);
+        // console.log(`Processing event: ${key}: ${event.start}` );
         if (event.start) {
             const eventDate = new Date(event.start);
-            eventDate.setHours(0, 0, 0, 0); // Set to start of the day
             console.log("Event date:", eventDate);
+            // eventDate.setHours(0, 0, 0, 0); // Set to start of the day
 
             if (eventDate >= oneWeekAgo && eventDate <= today) {
-                console.log("Event is within the range:", key);
+                // console.log("Event is within the range:", key);
                 filteredEvents[key] = event;
             } else {
-                console.log("Event is outside the range:", key);
+                // console.log("Event is outside the range:", key);
             }
         } else {
-            console.log("Event does not have a start date:", key);
+            // console.log("Event does not have a start date:", key);
         }
     }
 
-    console.log("Filtered events:", filteredEvents);
+    // console.log("Filtered events:", filteredEvents);
     return filteredEvents;
 }
 
 // Cleans up each event by removing unwanted fields and formatting description
-function removeUnwantedFields(events: { [key: string]: any }): { [key: string]: any } {
-    const cleanedEvents: { [key: string]: any } = {};
+function removeUnwantedFields(events: { [key: string]: any }): string {
+    // const cleanedEvents: { [key: string]: any } = {};
+    let cleanedEvents: string = '';
     for (const [key, event] of Object.entries(events)) {
-        cleanedEvents[key] = {
-            description: `Summary: ${event.summary}, Description: ${event.description}`, // Fixed incorrect `$` symbol
-            start: event.start,
-            location: event.location,
-        };
+        cleanedEvents +=
+            `Title: ${event.summary}\n` + 
+            `   Description: ${event.description}\n` +
+            `   Start time: ${event.start}\n`
     }
-    console.log("Cleaned events:", cleanedEvents);
     return cleanedEvents;
 }
+
+
+// // Cleans up each event by removing unwanted fields and formatting description
+// function removeUnwantedFields(events: { [key: string]: any }): string {
+//     // const cleanedEvents: { [key: string]: any } = {};
+//     const cleanedEvents: any[] = [];
+//     for (const [key, event] of Object.entries(events)) {
+//         cleanedEvents.push({
+//             description: `Title: ${event.summary}, Description: ${event.description}`, // Fixed incorrect `$` symbol
+//             start: event.start
+//         });
+//     }
+//     // console.log("Cleaned events:", cleanedEvents);
+//     return cleanedEvents;
+// }
