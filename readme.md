@@ -1,34 +1,40 @@
-# mood-cal
+# EquiMind
+
+**EquiMind** is a mood tracking and summarization application designed to help users monitor their mental health and well-being. It integrates with Google and Apple calendars to provide personalized mood analysis and actionable suggestions.
+
+## Features
+
+- **Calendar Integration**: Create a mood calendar on Google Calendar or Apple Calendar.
+- **Data Upload**: Download the `.ics` file of your calendar, then upload it to EquiMind for analysis.
+- **Mood Summary & Suggestions**: Get personalized feedback and suggestions for mood enhancement.
+- **Weekly Mood Graph**: View a graph displaying mood variations throughout the week.
+- **Professional Help Recommendations**: EquiMind suggests seeking professional help if mental health indicators are low.
+
+## Getting Started
+
+### mood-cal
+
+To set up the project, run:
 
 ```sh
 npm install
 ```
 
+Then start the server with:
+
 ```sh
 npm run start
 ```
 
-### project structure
-1) frontend: everything in `src/public`
-1) backend: everything in `src` that is not frontend
+### Project Structure
+1) **Frontend**: Everything in `src/public`
+2) **Backend**: Everything in `src` that is not part of the frontend
 
-### api key format in .env
-```
+### API Key Format in `.env`
+```plaintext
 OPENAI_API_KEY="your key here"
 ```
 
+## License
 
-### back-front api
-1) correct query
-```sh
-curl -X POST http://localhost:3000/api/data \
--H "Content-Type: application/json" \
--d '{"data": "Hello0World"}'
-```
-
-1) incorrect query
-```sh
-curl -X POST http://localhost:3000/api/data \
--H "Content-Type: application/json" \
--d '{"data": 506}'
-```
+EquiMind is open-source software licensed under the MIT License. See `LICENSE` for details.
