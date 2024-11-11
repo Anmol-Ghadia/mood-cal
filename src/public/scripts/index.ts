@@ -176,8 +176,8 @@ function makeGraph(labels: string[], data:number[]) {
                 display: true,
                 text: 'Mood'
                 },
-                min: -5,  // Minimum value
-                max: 5,  // Maximum value
+                min: -7,  // Minimum value
+                max: 7,  // Maximum value
                 ticks: {
                     stepSize: 0  // Interval between ticks
                 }

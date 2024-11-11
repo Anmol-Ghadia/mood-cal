@@ -35,6 +35,16 @@ body {
     justify-content: center;
 }
 
+#dropContainer:hover {
+    background-color: #ccc;
+    scale: 101%;
+}
+
+#submit-button {
+    width: 5vw;
+    align-self: 1.5;
+}
+
 #title {
     font-size: 3.5rem;
 }
@@ -57,6 +67,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 70% 70%;
+}
+
+#delete-data-button:hover {
+    scale: 105%;
 }
 
 #container[data-output-shown="1"] {
