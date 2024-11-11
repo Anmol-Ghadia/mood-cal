@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EquiMind</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="container" data-output-shown="0">
       <div id="title">EquiMind</div>
       <div id="summary">
-      Welcome to EquiMind! Follow the instructions below to use the app: Download your .ical/.ics file by following the instructions <a href="https://support.google.com/calendar/answer/37111?hl=en" target="_blank">here</a>. Once you have downloaded the file, simply drag and drop it into the area below. Click the "Analyze" button to process your data.
+      Welcome to EquiMind! Follow the instructions below to use the app: Download your <span class="highlight">.ical</span> or <span class="highlight">.ics</span> file by following the instructions <a href="https://support.google.com/calendar/answer/37111?hl=en" target="_blank">here</a>. Once you have downloaded the file, simply drag and drop it into the area below. Click the "Analyze" button to process your data.
       </div>
       <div 
         id="dropContainer" 
@@ -18,11 +21,11 @@
         data-hidden="0">
   
       <button id="delete-data-button" onclick="deleteData()"></button>
-      <p>Drop .ical/.ics file here</p>
+      <p>Drop <span>.ical or .ics</span> file here</p>
       <button id="submit-button" onclick="submitData()">Analyze</button>
     </div>
     <div id="output" data-hidden="1">
-    <div id = "showHelp">
+    <div id="showHelp">
       <a href="https://www.canada.ca/en/public-health/services/mental-health-services.html"> Mental Health Resources - Canada</a>
       <a href="https://www.vch.ca/en/health-topics/mental-health" target="_blank">Mental Health Resources - Vancouver</a>
     </div>
@@ -30,7 +33,6 @@
         <canvas id="myChart"></canvas>
     </div>
     </div>
-
   </div>
 
 </body>
