@@ -43,16 +43,11 @@ function summaryPrompt(data: string): string {
         throw new Error("No data provided");
     }
 
-    const prompt = `Using ${data}, identify the user's current mood from: Happy, Calm, Focused, Neutral, Sad, Anxious, Angry, or Stressed.
-        Return:
-        A 3-sentence weekly summary:
-        An average classification for the week.
-        Don't bold or format the response. 
-        Suggest continuing current habits if positive.
-        Suggest finding happiness-boosting activities if varied.
-        Suggest some activities to reduce stress if negative (give examples if neccessary).
-        Make sure that you cover each day and every fluctuation you see. 
-        Make sure all are included in the response.`;
+    const prompt = 
+`Using ${data}
+Return:
+Give plain text response. Given the above calendar data, summarize the mood in short and
+leavea a line then give recomendations to improve mood in the future. Write a 2 to 3 sentences`;
     console.log("Prompt:", prompt);
      return prompt;
 

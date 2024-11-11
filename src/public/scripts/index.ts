@@ -95,8 +95,8 @@ function setGlobalArrs(response_array: string[]): string[] {
       MOODS_ARRAY.push(word); // trim to remove extra spaces
       MOODS_DESC.push(element.split(":")[1]); // trim to remove extra spaces
       MOODS_NUM_ARRAY.push(convetWordToPoint(word));
-      
     });
+    giveInformationForHelp(MOODS_NUM_ARRAY)
     return filtered_array;
 }
 
@@ -131,7 +131,7 @@ function convetWordToPoint(word: string): number {
             point = 0;
             break;
     }
-  console.log(`word: ${word}, points: ${point}`)
+//   console.log(`word: ${word}, points: ${point}`)
     return point;
   }
 
@@ -142,8 +142,6 @@ let myLineChart: Chart;
 let dataCount = 0;
 // Create the line chart
 function makeGraph(labels: string[], data:number[]) {
-    console.log(labels)
-    console.log(data)
 
     const config: any = {
         type: 'line', // Line chart type
@@ -190,10 +188,11 @@ function makeGraph(labels: string[], data:number[]) {
 
   function giveInformationForHelp(pointsArray: number[]) {
     if (helpNeeded(pointsArray)) {
+        console.log("help needed");
         const showHelpDiv = document.getElementById('showHelp') as HTMLElement;
-        if (showHelpDiv) {
-            showHelpDiv.style.display = 'block';
-        }
+        showHelpDiv.dataset.hidden = "0"
+    } else {
+        console.log("help not needed");
     }
   }
   
