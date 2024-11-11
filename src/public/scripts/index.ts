@@ -1,6 +1,7 @@
 const dropContainer = document.getElementById('dropContainer') as HTMLElement;
 const summaryContainer = document.getElementById("summary") as HTMLElement;
-
+const outputContainer = document.getElementById("output") as HTMLElement;
+const mainContainer = document.getElementById("container") as HTMLElement;
 
 let DATA: string | null = null;
 let MOODS_ARRAY: string[]= [];
@@ -78,6 +79,8 @@ async function fetchData(converted_data: string) {
         makeGraph(MOODS_ARRAY,MOODS_NUM_ARRAY);
 
         dropContainer.dataset.hidden = '1';
+        mainContainer.dataset.outputShown = "1";
+        outputContainer.dataset.hidden = "0";
         console.log('Response from backend:', result);
       })
     .catch(error => {
@@ -135,8 +138,8 @@ function convetWordToPoint(word: string): number {
 // Get the context of the canvas element
 const mychart: HTMLCanvasElement = document.getElementById('myChart') as HTMLCanvasElement;
 const ctx = mychart.getContext('2d') as CanvasRenderingContext2D;
-let myLineChart;
-
+let myLineChart: Chart;
+let dataCount = 0;
 // Create the line chart
 function makeGraph(labels: string[], data:number[]) {
     console.log(labels)
@@ -146,34 +149,44 @@ function makeGraph(labels: string[], data:number[]) {
         type: 'line', // Line chart type
         data: {
             labels: labels, // X-axis labels
-            datasets: [{
-            label: 'Mood', // Label for the line
-            data: data, // Y-axis data
-            fill: false, // Do not fill the area under the line
-            borderColor: 'rgba(75, 192, 192, 1)', // Line color
-            tension: 0.3 // Line tension (curvature)
-            }]
+            datasets: [
+                {
+                label: 'Mood', // Label for the line
+                data: data, // Y-axis data
+                fill: false, // Do not fill the area under the line
+                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                tension: 0.3 // Line tension (curvature)
+                }
+            ]
         },
         options: {
             responsive: true,
             scales: {
             x: {
                 title: {
-                display: false,
-                text: 'Last week'
-                }
+                    display: true,
+                    text: 'Last week'
+                },
+                ticks: {
+                    display: false,  // This hides the labels on the x-axis
+                },
             },
             y: {
                 title: {
                 display: true,
                 text: 'Mood'
+                },
+                min: -5,  // Minimum value
+                max: 5,  // Maximum value
+                ticks: {
+                    stepSize: 0  // Interval between ticks
+                }
                 }
             }
             }
-        }
         };
     myLineChart = new Chart(ctx, config);
-}
+      }
 
   function giveInformationForHelp(pointsArray: number[]) {
     if (helpNeeded(pointsArray)) {

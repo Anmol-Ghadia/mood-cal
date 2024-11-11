@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop Container</title>
+    <title>EquiMind</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <h2>Drag and Drop your .ical/.ics file here</h2>
-    <div id="summary">
+    <div id="container" data-output-shown="0">
+      <div id="title">EquiMind</div>
+      <div id="summary">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat sequi dolorem ea hic aliquam consectetur quibusdam nihil velit ut architecto possimus, explicabo culpa vero, quas magnam repellendus. A, odio neque!
+      </div>
+      <div 
+        id="dropContainer" 
+        data-has-data="0"
+        data-hidden="0">
+  
+      <button id="delete-data-button" onclick="deleteData()"></button>
+      <p>Drop .ical/.ics file here</p>
+      <button id="submit-button" onclick="submitData()">Analyze</button>
     </div>
-    <div 
-    id="dropContainer" 
-    data-has-data="0"
-    data-hidden="0"> 
-    <button id="delete-data-button" onclick="deleteData()">delete</button>
-    <p>Drop .ical/.ics file here</p>
-    <button id="submit-button" onclick="submitData()">Submit data</button>
-</div>
-<div id = "showHelp">
-  <a href="https://www.canada.ca/en/public-health/services/mental-health-services.html"> Mental Health Resources - Canada</a>
-  <a href="https://www.vch.ca/en/health-topics/mental-health" target="_blank">Mental Health Resources - Vancouver</a>
-</div>
-<div>
-    <canvas id="myChart"></canvas>
+    <div id="output" data-hidden="1">
+    <div id = "showHelp">
+      <a href="https://www.canada.ca/en/public-health/services/mental-health-services.html"> Mental Health Resources - Canada</a>
+      <a href="https://www.vch.ca/en/health-topics/mental-health" target="_blank">Mental Health Resources - Vancouver</a>
+    </div>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    </div>
+
   </div>
 
 </body>
