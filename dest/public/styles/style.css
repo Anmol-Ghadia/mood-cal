@@ -110,7 +110,7 @@ body {
 
 #title {
     font-size: 3.5rem;
-    color: #4527a0; /* deep purple for title */
+    color: rgb(69, 39, 160); /* deep purple for title */
 }
 
 #summary {
@@ -150,6 +150,34 @@ body {
     flex-direction: column;
     align-items: center;
 
+}
+
+#showHelp .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#showHelp .container div {
+    width: fit-content;
+    margin: 1vw;
+    background-color: #ffccbc; /* soft peach for button */
+    color: #4e342e; /* dark brown for text */
+    border: 2px solid #5c6bc0;
+
+    border-radius: 1vw;
+    padding: 0.5vh;
+}
+
+#showHelp .container div:hover {
+    filter: brightness(95%);
+    scale: 105%;
+}
+
+
+#showHelp .container div a {
+    text-decoration: none;
 }
 
 #showHelp[data-hidden="1"] {

@@ -161,6 +161,13 @@ function makeGraph(labels: string[], data:number[]) {
             responsive: true,
             scales: {
             x: {
+                grid: {
+                    display: true,
+                    color: 'rgba(69, 39, 160,0)',
+                    borderDash: [2.5,2.5],
+                    linWidth: 1,
+                    borderColor: 'rgba(69, 39, 160,1)'
+                }, 
                 title: {
                     display: true,
                     text: 'Last week'
@@ -170,16 +177,23 @@ function makeGraph(labels: string[], data:number[]) {
                 },
             },
             y: {
+                grid: {
+                    display: true,
+                    color: 'rgba(69, 39, 160,0.25)',
+                    borderDash: [2.5,2.5],
+                    linWidth: 1,
+                    borderColor: 'rgba(69, 39, 160,1)'
+                }, 
                 title: {
-                display: true,
-                text: 'Mood'
+                    display: true,
+                    text: 'Mood'
                 },
-                min: -7,  // Minimum value
-                max: 7,  // Maximum value
+                min: -8,  // Minimum value
+                max: 8,  // Maximum value
                 ticks: {
                     stepSize: 0  // Interval between ticks
                 }
-                }
+            }
             }
             }
         };
