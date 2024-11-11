@@ -1,3 +1,55 @@
+body {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Style for the SVG container */
+.svg-container {
+    width: 500px;
+    height: 250px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Ensure the SVG scales properly */
+.svg-container svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Styling for the SVG paths */
+path {
+    stroke: #6a0dad; /* Change color as needed */
+    stroke-width: 0.5; /* Adjust stroke width as needed */
+    fill: none;
+}
+
+/* Hide the content initially */
+#content {
+    display: none;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Set default font color */
 * {
     margin: 0px;
