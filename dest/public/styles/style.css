@@ -4,7 +4,6 @@
     box-sizing: border-box;
     padding: 0px;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 1.2rem;
     color: #4527a0; /* Deep purple for all text */
 }
 
@@ -94,13 +93,19 @@ body {
 }
 
 #submit-button {
-    width: 5vw;
-    align-self: 1.5;
+    width: fit-content;
+    margin: 1vw;
     background-color: #ffccbc; /* soft peach for button */
     color: #4e342e; /* dark brown for text */
-    border: none;
+    border: 2px solid #5c6bc0;
+
     border-radius: 4px;
     padding: 0.5vh;
+}
+
+#submit-button:hover {
+    filter: brightness(95%);
+    scale: 105%;
 }
 
 #title {
@@ -111,12 +116,13 @@ body {
 #summary {
     width: 60vw;
     text-align: center;
-    color: #37474f; /* slate grey for readability */
+    color: #4527a0; /* slate grey for readability */
+    font-size: 1rem;
 }
 
 #delete-data-button {
     border: none;
-    border: 2px solid #5c6bc0; /* medium lavender border */
+    border: 2px solid rgb(92, 107, 192); /* medium lavender border */
     border-radius: 1vh;
     position: absolute;
     right: min(1.5vh, 1.5vw);
@@ -127,12 +133,12 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 70% 70%;
-    background-color: #ffab91; /* soft peach background */
+    background-color: rgb(255, 171, 145); /* soft peach background */
 }
 
 #delete-data-button:hover {
     scale: 105%;
-    background-color: #ff8a65; /* brighter peach on hover */
+    background-color: rgb(255, 138, 101); /* brighter peach on hover */
 }
 
 #container[data-output-shown="1"] {
@@ -143,6 +149,7 @@ body {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
 }
 
 #showHelp[data-hidden="1"] {

@@ -152,7 +152,7 @@ function makeGraph(labels: string[], data:number[]) {
                 label: 'Mood', // Label for the line
                 data: data, // Y-axis data
                 fill: false, // Do not fill the area under the line
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                borderColor: 'rgba(255, 138, 101,1)', // Line color
                 tension: 0.3 // Line tension (curvature)
                 }
             ]
