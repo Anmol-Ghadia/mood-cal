@@ -77,6 +77,19 @@ body {
     row-gap: 5vh;
 }
 
+#showHelp {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#showHelp[data-hidden="1"] {
+    display: none;
+}
+
+#showHelp[data-hidden="0"] {
+    display: flex;
+}
 
 #container[data-output-shown="0"] {
     row-gap: 15vh;
