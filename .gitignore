@@ -2,3 +2,4 @@
 node_modules
 .vscode
 dest/**/**.js
+!dest/public/scripts/animation.js
